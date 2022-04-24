@@ -17,5 +17,3 @@ def play(game: Game, player1, player2):
 
 
 play(Chomp(4,4), alphabeta, alphabeta)
-
-

@@ -50,7 +50,7 @@ def alphabeta(game, start_state):
     STATE_DICT={}
 
     def max_move(state, alpha, beta):
-        key = str((start_state[0],state))
+        key = str((start_state[0], state))
         if key in STATE_DICT:
             return STATE_DICT[key]
         if game.is_terminal(state):

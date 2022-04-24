@@ -5,14 +5,16 @@ from game_utils import opponent
 
 
 class Chomp(Game):
-    def __init__(self,m=4,n=4):
+    def __init__(self, m=4, n=4):
         self.m = m
         self.n = n
 
     @property
     def initial_state(self):
-        return (1, np.ones((self.m,self.n)))
+        # 1st val is player, 2nd is playing board
+        return (1, np.ones((self.m, self.n)))
 
+    # which player's turn is it
     def player(self, state):
         return state[0]
 
@@ -22,9 +24,9 @@ class Chomp(Game):
 
     def result(self, state, action):
         board = state[1].copy()
-        assert board[action[0],action[1]] == 1
+        assert board[action[0], action[1]] == 1
         assert state[0] in {1, 2}
-        board[action[0]:,action[1]:] =  0
+        board[action[0]:, action[1]:] =  0
         next_player = opponent(state[0])
         return (next_player, board)
 

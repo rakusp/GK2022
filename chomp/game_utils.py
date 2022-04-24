@@ -15,7 +15,7 @@ def judge(game: Game, player1, player2):
     while not game.is_terminal(state):
         if game.player(state) == 1:
             action = player1(game, state)
-            print("action",action)
+            print("action", action)
         else:
             action = player2(game, state)
         game.print_state(state)
