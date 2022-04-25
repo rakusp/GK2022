@@ -86,3 +86,11 @@ def alphabeta(game, start_state):
         return min_value, best_action
 
     return max_move(start_state, float("-inf"), float("inf"))[1]
+
+
+PLAYERS = {
+    "random": random_agent,
+    "min_max": minimax,
+    "AlphaBeta": alphabeta,
+    "Użytkownik": None
+}

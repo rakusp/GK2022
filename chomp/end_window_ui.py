@@ -41,7 +41,7 @@ class Ui_endGame(object):
         self.horizontalLayout.addWidget(self.backToMenu)
         self.winnerLabel = QtWidgets.QLabel(endGame)
         self.winnerLabel.setGeometry(QtCore.QRect(10, 10, 381, 121))
-        self.winnerLabel.setStyleSheet("background-color: rgb(255, 255, 255, 0);\n"
+        self.winnerLabel.setStyleSheet("background-color: rgba(255, 255, 255, 0);\n"
 "font: 87 20pt \"Arial Black\";\n"
 "color: rgb(255, 255, 255)")
         self.winnerLabel.setObjectName("winnerLabel")

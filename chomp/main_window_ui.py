@@ -15,8 +15,8 @@ class Ui_mainMenuWindow(object):
     def __init__(self):
         super()
         # initialize default settings
-        self.player1 = 'Użytkownik'
-        self.player2 = 'AlphaBeta'
+        self.player1_name = 'Użytkownik'
+        self.player2_name = 'AlphaBeta'
         self.width = 4
         self.height = 4
         # default list of buttons that function as chocolate pieces
@@ -307,8 +307,8 @@ class Ui_mainMenuWindow(object):
 
     def saveSettings(self):
         # get players
-        self.player1 = self.comboBox.currentText()
-        self.player2 = self.comboBox_2.currentText()
+        self.player1_name = self.comboBox.currentText()
+        self.player2_name = self.comboBox_2.currentText()
         # get chocolate size
         self.width = self.widthSpinBox.value()
         self.height = self.heightSpinBox.value()
@@ -316,7 +316,7 @@ class Ui_mainMenuWindow(object):
         self.buttonList = [[0] * self.width for _ in range(self.height)]
         # go back to menu
         self.stackedWidget.setCurrentIndex(0)
-        print(f"Setting saved: {(self.player1, self.player2, self.width, self.height)}")
+        print(f"Setting saved: {(self.player1_name, self.player2_name, self.width, self.height)}")
 
 
     def retranslateUi(self, mainMenuWindow):

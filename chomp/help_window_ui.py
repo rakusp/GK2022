@@ -36,14 +36,14 @@ class Ui_helpWIndow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.helpText_2.sizePolicy().hasHeightForWidth())
         self.helpText_2.setSizePolicy(sizePolicy)
-        self.helpText_2.setStyleSheet("background-color: rgb(255, 255, 255, 0);\n"
+        self.helpText_2.setStyleSheet("background-color: rgba(255, 255, 255, 0);\n"
 "font: 87 20pt \"Arial Black\";\n"
 "color: rgb(122, 75, 52)")
         self.helpText_2.setObjectName("helpText_2")
         self.verticalLayout.addWidget(self.helpText_2)
         self.helpText_1 = QtWidgets.QLabel(helpWIndow)
         self.helpText_1.setAutoFillBackground(False)
-        self.helpText_1.setStyleSheet("background-color: rgb(255, 255, 255, 0);\n"
+        self.helpText_1.setStyleSheet("background-color: rgba(255, 255, 255, 0);\n"
 "font: 87 10pt \"Arial Black\";\n"
 "color: rgb(255, 255, 255)")
         self.helpText_1.setScaledContents(False)
