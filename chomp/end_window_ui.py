@@ -12,6 +12,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_endGame(object):
+    def __init__(self):
+        self.player_won = None
+
+    def set_player_won(self,player_won):
+        self.player_won = player_won
+
     def setupUi(self, endGame):
         endGame.setObjectName("endGame")
         endGame.resize(400, 211)
@@ -54,4 +60,4 @@ class Ui_endGame(object):
         endGame.setWindowTitle(_translate("endGame", "Koniec gry"))
         self.playAgainButton.setText(_translate("endGame", "Zagraj ponownie"))
         self.backToMenu.setText(_translate("endGame", "Wróć do menu"))
-        self.winnerLabel.setText(_translate("endGame", "<html><head/><body><p align=\"center\">WYGRAŁ GRACZ 1</p></body></html>"))
+        self.winnerLabel.setText(_translate("endGame", f"<html><head/><body><p align=\"center\">WYGRAŁ GRACZ {self.player_won}</p></body></html>"))

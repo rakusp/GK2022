@@ -85,7 +85,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
     def after_game(self):
         player_won = self.state[0]
         print(f'Game over, player {player_won} won')
-        endWindow = EndWindow(self)
+        endWindow = EndWindow(self, player_won=player_won)
         endWindow.exec_()
 
 
@@ -107,8 +107,10 @@ class HelpWindow(QDialog, Ui_helpWIndow):
 
 
 class EndWindow(QDialog, Ui_endGame):
-    def __init__(self, mainWindow, parent=None):
+    def __init__(self, mainWindow, parent=None, player_won=None):
         super().__init__(parent)
+        print(player_won)
+        self.set_player_won(player_won)
         self.setupUi(self)
         self.mainWindow = mainWindow
         self.setupEvents()

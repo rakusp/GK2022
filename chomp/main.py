@@ -3,8 +3,8 @@ import time
 
 from Chomp import Chomp
 from Game import Game
-from game_utils import judge
-from players import alphabeta
+from game_utils import judge, run_test
+from players import alphabeta, random_agent, minimax
 
 
 def play(game: Game, player1, player2):
@@ -15,5 +15,6 @@ def play(game: Game, player1, player2):
 
     return result
 
-
-play(Chomp(4,4), alphabeta, alphabeta)
+a = None
+for res in run_test(Chomp(5,5), alphabeta, minimax, 100):
+    print(res)
