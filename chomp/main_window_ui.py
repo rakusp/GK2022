@@ -319,6 +319,26 @@ class Ui_mainMenuWindow(object):
         print(f"Setting saved: {(self.player1_name, self.player2_name, self.width, self.height)}")
 
 
+    def highlight_player(self,player_name):
+        print("Highlight", player_name)
+        if self.player1_name == player_name:
+            self.player1Label.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                        "font: 75 20pt \"Arial\";\n"
+                                        "color: rgb(255, 255, 0);\n"
+                                        "")
+            self.player2Label.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                        "font: 75 20pt \"Arial\";\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "")
+        else:
+            self.player1Label.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                        "font: 75 20pt \"Arial\";\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "")
+            self.player2Label.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                        "font: 75 20pt \"Arial\";\n"
+                                        "color: rgb(255, 255, 0);\n"
+                                        "")
     def retranslateUi(self, mainMenuWindow):
         _translate = QtCore.QCoreApplication.translate
         mainMenuWindow.setWindowTitle(_translate("mainMenuWindow", "Chomp"))
@@ -336,6 +356,6 @@ class Ui_mainMenuWindow(object):
         self.comboBox_2.setItemText(1, _translate("mainMenuWindow", "MinMax"))
         self.comboBox_2.setItemText(2, _translate("mainMenuWindow", "Losowe ruchy"))
         self.backToMenu.setText(_translate("mainMenuWindow", "OK"))
-        self.player1Label.setText(_translate("mainMenuWindow", "<html><head/><body><p align=\"center\">Gracz 1</p></body></html>"))
-        self.player2Label.setText(_translate("mainMenuWindow", "<html><head/><body><p align=\"center\">Gracz 2</p></body></html>"))
+        self.player1Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player1_name}</p></body></html>"))
+        self.player2Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player2_name}</p></body></html>"))
 import chomp_rc

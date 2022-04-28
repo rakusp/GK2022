@@ -35,6 +35,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
         self.game = Chomp(self.height, self.width)
         self.player1, self.player2 = PLAYERS[self.player1_name], PLAYERS[self.player2_name]
         self.state = self.game.initial_state
+        self.highlight_player(self.player1_name if self.state[0] == 1 else self.player2_name)
         self.chocolateLayout.setSpacing(24 - self.width - self.height)
         sizePolicy5 = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy5.setHorizontalStretch(0)
@@ -69,7 +70,6 @@ class Window(QMainWindow, Ui_mainMenuWindow):
 
         print(f"Player's: {self.game.player(self.state)} turn")
         currentPlayer = self.player1 if self.game.player(self.state) == 1 else self.player2
-        #TODO light up proper player on screen
         if currentPlayer != None:
             action = currentPlayer(self.game, self.state)
             if self.move(action):
@@ -80,6 +80,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
         """return if state is terminal"""
         self.state = self.game.result(self.state, action)
         self.updateBoardFromState()
+        self.highlight_player(self.player1_name if self.state[0] == 1 else self.player2_name)
         return self.game.is_terminal(self.state)
 
     def after_game(self):
@@ -96,7 +97,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
             for j in range(self.width):
                 if chococlate[i][j] == 0:
                     self.buttonList[i][j].setEnabled(False)
-                    self.buttonList[i][j].setStyleSheet(u"background-color: rgba(122, 75, 52, 0);")
+                    self.buttonList[i][j].setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
 
 
 
