@@ -18,5 +18,5 @@ def play(game: Game, player1, player2):
 
 a = None
 random.seed(123)
-for res in run_test(Chomp(5,6), middle_agent, random_agent, 1000, debug=True):
+for res in run_test(Chomp(5,6), random_agent, middle_agent, 1000, debug=False):
     print(res)

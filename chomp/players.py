@@ -148,12 +148,12 @@ def middle_agent(game, start_state):
         i0,j0,i1,j1 = ijij
         if i0 == 0 and i1 == 1:
             if j0 >= j1:
-                return i0,j1+1
+                return i0,j1+2
             else:#to sie nigdy nie stanie :)
                 return i1,j0
         else:
             if i0 >= i1:
-                return i1+1,j0
+                return i1+2,j0
             else:#to tez sie nigdy nie stanie :)
                 return i0,j1
     actions = game.actions(start_state)
