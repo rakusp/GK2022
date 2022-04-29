@@ -17,7 +17,6 @@ def random_agent(game, state):
 
 def middle_agent(game, start_state):
     def is_rectangle(board):
-        print(board)
         n,m = board.shape
         i,j = 0,0
         while i+1 < n and board[i+1][j]:
@@ -29,6 +28,8 @@ def middle_agent(game, start_state):
         return None
 
     def is_nxn(board):
+        if not board[1,1]:
+            return None
         ij = is_rectangle(board)
         if ij == None:
             return
@@ -76,29 +77,32 @@ def middle_agent(game, start_state):
         return None
 
     def is_22_beneficial(board):
+        if not board[1,1]:
+            return None
         board_copy = board.copy()
         board_copy[1:,1:] = 0
         if not is_corner_uneven(board_copy):
             return 1,1
         return None
 
-    def is_almost_nx2(board):#
+    def is_almost_nx2(board):
+        n,m = board.shape
         if np.sum(board[2:, :]) == 0:
             j0 = 0
-            while board[0, j0+1] == 1:
+            while j0+1 < m and board[0, j0+1] == 1:
                 j0 += 1
             j1 = 0
-            while board[1, j1+1] == 1:
+            while j1+1 < m and board[1, j1+1] == 1:
                 j1 += 1
             if abs(j1-j0) == 1:
                 return None
             return 0, j0, 1, j1
         elif np.sum(board[:, 2:]) == 0:
             i0 = 0
-            while board[i0+1, 0] == 1:
+            while i0 + 1 < n and board[i0+1, 0] == 1:
                 i0 += 1
             i1 = 0
-            while board[i1+1, 1] == 1:
+            while i1 + 1 < n and board[i1+1, 1] == 1:
                 i1 += 1
             if abs(i0-i1) == 1:
                 return None
@@ -144,12 +148,12 @@ def middle_agent(game, start_state):
         i0,j0,i1,j1 = ijij
         if i0 == 0 and i1 == 1:
             if j0 >= j1:
-                return i0,j1
+                return i0,j1+1
             else:#to sie nigdy nie stanie :)
                 return i1,j0
         else:
             if i0 >= i1:
-                return i1,j0
+                return i1+1,j0
             else:#to tez sie nigdy nie stanie :)
                 return i0,j1
     actions = game.actions(start_state)
@@ -166,23 +170,14 @@ def middle_agent(game, start_state):
         else:
             possible_actions.append(action)
     if len(possible_actions) > 0:
-        print("making random positive move")
         return random.choice(possible_actions)
     else:
-        print("making random negative move")
-        return random.sample(population=[b[0] for b in bad_actions], k=1,  counts=[b[1] for b in bad_actions])
+        #return random.sample(population=[b[0] for b in bad_actions], k=1,  counts=[b[1] for b in bad_actions])
+        return random.choice([b[0] for b in bad_actions])
 
 
 def minimax(game: Game, start_state):
     STATE_DICT = {}
-
-    empty_state = np.zeros(start_state[1].shape)
-    for i in range(empty_state.shape[0] +1):
-        for j in range(empty_state.shape[1] + 1):
-            if i!=0 and j!= 0:
-                empty_state[0:i,0:j] = 1
-                STATE_DICT[str((start_state[0], empty_state))] = 1
-                STATE_DICT[str((opponent(start_state[0]), empty_state))] = -1
 
     def max_move(state):
         key = str(state)
@@ -211,7 +206,7 @@ def minimax(game: Game, start_state):
         return value
 
     available_actions = game.actions(start_state)
-    if len(available_actions) == 0:
+    if len(available_actions) == 1:
         return available_actions[0]
     available_actions = available_actions[1:]
     winning_actions = []
@@ -221,7 +216,7 @@ def minimax(game: Game, start_state):
         if result == 1:
             winning_actions.append(action)
         else:
-            losing_actions.append(result)
+            losing_actions.append(action)
     if len(winning_actions) > 0:
         return random.choice(winning_actions)
     return random.choice(losing_actions)

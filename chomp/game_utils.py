@@ -60,12 +60,12 @@ def judge(game: Game, player1, player2):
         return 0
 
 
-def run_test(game:Game, player1, player2, n=100):
+def run_test(game:Game, player1, player2, n=100, debug=False):
     p1_won = 0
     p2_won = 0
     draws = 0
     for _ in range(n):
-        result = judge(game, player1, player2)
+        result = judge(game, player1, player2) if not debug else judge_debug(game, player1, player2)
         if result == 1:
             p1_won += 1
         elif result == 2:
@@ -75,7 +75,5 @@ def run_test(game:Game, player1, player2, n=100):
         yield {"p1": p1_won, "p2": p2_won, "draws": draws}
 
 
-
-#TODO create run test screen
 # for res in run_test(Chomp(5,5), random_agent, random_agent, 100000):
 #     #update results in ui
