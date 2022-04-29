@@ -15,8 +15,162 @@ def random_agent(game, state):
     return random.choice(game.actions(state))
 
 
-def middle_agent(game, state):
-    return random.choice(game.actions(state))#TODO make it clever
+def middle_agent(game, start_state):#TODO make it clever
+    def is_rectangle(board):
+        print(board)
+        n,m = board.shape
+        i,j = 0,0
+        while i+1 < n and board[i+1][j]:
+            i+=1
+        while j+ 1 < m and board[i][j+1]:
+            j+=1
+        if np.sum(board) == np.sum(board[0:(i+1),0:(j+1)]):
+            return i,j
+        return None
+
+    def is_nxn(board):
+        ij = is_rectangle(board)
+        if ij == None:
+            return
+        i,j = ij
+        if i == j:
+            return i,j
+        return None
+
+    def is_nx2(board):#if is rectangle
+        ij = is_rectangle(board)
+        if ij == None:
+            return
+        i,j = ij
+        if i == 1 or j ==1:
+            return i,j
+        return None
+
+    def is_nx1(board):
+        ij = is_rectangle(board)
+        if ij == None:
+            return
+        i,j = ij
+        if i == 0 or j == 0:
+            return i,j
+        return None
+
+    def is_corner(board):
+        n,m = board.shape
+        i,j = 0,0
+        while i+1 < n and board[i+1][0]:
+            i+=1
+        while j+ 1 < m and board[0][j+1]:
+            j+=1
+        if np.sum(board) == (np.sum(board[0, 0:(j+1)]) + np.sum(board[0:(i+1), 0]) -1):
+            return i,j
+        return None
+
+    def is_corner_uneven(board):
+        ij = is_corner(board)
+        if ij == None:
+            return
+        i,j = ij
+        if i != j:
+            return i,j
+        return None
+
+    def is_22_beneficial(board):
+        board_copy = board.copy()
+        board_copy[1:,1:] = 0
+        if not is_corner_uneven(board_copy):
+            return 1,1
+        return None
+
+    def is_almost_nx2(board):#TODO 1 case kiedy jest 2xn lekko uciete
+        if np.sum(board[2:, :]) == 0:
+            j0 = 0
+            while board[0, j0+1] == 1:
+                j0 += 1
+            j1 = 0
+            while board[1, j1+1] == 1:
+                j1 += 1
+            if abs(j1-j0) == 1:
+                return None
+            return 0, j0, 1, j1
+        elif np.sum(board[:, 2:]) == 0:
+            i0 = 0
+            while board[i0+1, 0] == 1:
+                i0 += 1
+            i1 = 0
+            while board[i1+1, 1] == 1:
+                i1 += 1
+            if abs(i0-i1) == 1:
+                return None
+            return i0, 0, i1, 1
+        return None
+
+    def is_good(board):
+        for check in [is_rectangle, is_corner_uneven, is_almost_nx2, is_22_beneficial, is_almost_nx2]:
+            if check(board) is not None:
+                return True
+        return False
+
+    _, start_board = start_state
+    if np.sum(start_board) == 1:
+        return 0,0
+    ij = is_nxn(start_board)
+    if ij is not None:
+        return 1,1
+    ij = is_22_beneficial(start_board)
+    if ij is not None:
+        i,j = ij
+        return i,j
+    ij = is_corner_uneven(start_board)
+    if ij is not None:
+        i,j = ij
+        if i > j:
+            return j+1,0
+        return 0, i+1
+    ij = is_nx1(start_board)
+    if ij is not None:
+        i,j = ij
+        if i > j:
+            return 1, 0
+        return 0, 1
+    ij = is_nx2(start_board)
+    if ij is not None:
+        i,j = ij
+        if i > j:
+            return i, 1
+        return 1, j
+    ijij = is_almost_nx2(start_board)
+    if ijij is not None:
+        i0,j0,i1,j1 = ijij
+        if i0 == 0 and i1 == 1:
+            if j0 > j1:
+                return i0,j1
+            else:
+                return i1,j0
+        else:
+            if i0 > i1:
+                return i1,j0
+            else:
+                return i0,j1
+    actions = game.actions(start_state)
+    if len(actions) == 1:
+        return actions[0]
+    actions = actions[1:]
+    possible_actions = []
+    bad_actions = []
+    for action in actions:
+        enemy_board = game.result(start_state, action)
+        _, new_board = enemy_board
+        if is_good(new_board):
+            bad_actions.append((action, np.sum(new_board)))
+        else:
+            possible_actions.append(action)
+    if len(possible_actions) > 0:
+        print("making random positive move")
+        return random.choice(possible_actions)
+    else:
+        print("making random negative move")
+        return random.sample(population=[b[0] for b in bad_actions], k=1,  counts=[b[1] for b in bad_actions])
 
 
 def minimax(game: Game, start_state):
@@ -132,8 +286,10 @@ def alphabeta(game: Chomp, start_state):
 
 
 PLAYERS = {
-    "random": random_agent,
+    "Random": random_agent,
     "MinMax": minimax,
     "AlphaBeta": alphabeta,
-    "Użytkownik": None
+    "Użytkownik": None,
+    "Middle": middle_agent
 }
+

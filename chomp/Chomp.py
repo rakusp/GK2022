@@ -24,7 +24,8 @@ class Chomp(Game):
 
     def result(self, state, action):
         board = state[1].copy()
-        assert board[action[0], action[1]] == 1
+        if not board[action[0], action[1]] == 1:
+            raise Exception(f"Invalid action: {action}")
         assert state[0] in {1, 2}
         board[action[0]:, action[1]:] =  0
         next_player = opponent(state[0])
