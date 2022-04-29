@@ -15,7 +15,7 @@ def random_agent(game, state):
     return random.choice(game.actions(state))
 
 
-def middle_agent(game, start_state):#TODO make it clever
+def middle_agent(game, start_state):
     def is_rectangle(board):
         print(board)
         n,m = board.shape
@@ -82,7 +82,7 @@ def middle_agent(game, start_state):#TODO make it clever
             return 1,1
         return None
 
-    def is_almost_nx2(board):#TODO 1 case kiedy jest 2xn lekko uciete
+    def is_almost_nx2(board):#
         if np.sum(board[2:, :]) == 0:
             j0 = 0
             while board[0, j0+1] == 1:
@@ -143,14 +143,14 @@ def middle_agent(game, start_state):#TODO make it clever
     if ijij is not None:
         i0,j0,i1,j1 = ijij
         if i0 == 0 and i1 == 1:
-            if j0 > j1:
+            if j0 >= j1:
                 return i0,j1
-            else:
+            else:#to sie nigdy nie stanie :)
                 return i1,j0
         else:
-            if i0 > i1:
+            if i0 >= i1:
                 return i1,j0
-            else:
+            else:#to tez sie nigdy nie stanie :)
                 return i0,j1
     actions = game.actions(start_state)
     if len(actions) == 1:

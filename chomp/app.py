@@ -61,6 +61,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
             self.move(action)
 
     # opponent can also use this
+    #TODO trzeba wykminic jak zrobic, zeby to bylo w tle bo tak to nie widac updatu UI :(
     def chocolateClicked(self, x, y):
         print('Clicked piece:', (x, y))
         action = (y,x)

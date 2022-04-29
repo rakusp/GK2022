@@ -75,5 +75,7 @@ def run_test(game:Game, player1, player2, n=100):
         yield {"p1": p1_won, "p2": p2_won, "draws": draws}
 
 
+
+#TODO create run test screen
 # for res in run_test(Chomp(5,5), random_agent, random_agent, 100000):
 #     #update results in ui
