@@ -35,7 +35,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
         self.game = Chomp(self.height, self.width)
         self.player1, self.player2 = PLAYERS[self.player1_name], PLAYERS[self.player2_name]
         self.state = self.game.initial_state
-        self.highlight_player(self.player1_name if self.state[0] == 1 else self.player2_name)
+        self.highlight_player(self.state[0])
         self.chocolateLayout.setSpacing(24 - self.width - self.height)
         sizePolicy5 = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy5.setHorizontalStretch(0)
@@ -61,8 +61,8 @@ class Window(QMainWindow, Ui_mainMenuWindow):
             self.move(action)
 
     # opponent can also use this
-    #TODO trzeba wykminic jak zrobic, zeby to bylo w tle bo tak to nie widac updatu UI :(
     def chocolateClicked(self, x, y):
+        print(self.player1_name, self.player2_name)
         print('Clicked piece:', (x, y))
         action = (y,x)
         if self.move(action):
@@ -81,7 +81,8 @@ class Window(QMainWindow, Ui_mainMenuWindow):
         """return if state is terminal"""
         self.state = self.game.result(self.state, action)
         self.updateBoardFromState()
-        self.highlight_player(self.player1_name if self.state[0] == 1 else self.player2_name)
+        self.highlight_player(self.state[0])
+        self.repaint()
         return self.game.is_terminal(self.state)
 
     def after_game(self):

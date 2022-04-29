@@ -232,6 +232,7 @@ class Ui_mainMenuWindow(object):
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
+        self.comboBox_2.addItem("")
         self.verticalLayout_3.addWidget(self.comboBox_2)
         self.verticalLayout_4.addLayout(self.verticalLayout_3)
         self.backToMenu = QtWidgets.QPushButton(self.settingsPage)
@@ -319,11 +320,14 @@ class Ui_mainMenuWindow(object):
         # go back to menu
         self.stackedWidget.setCurrentIndex(0)
         print(f"Setting saved: {(self.player1_name, self.player2_name, self.width, self.height)}")
+        _translate = QtCore.QCoreApplication.translate
+        self.player1Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player1_name}</p></body></html>"))
+        self.player2Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player2_name}</p></body></html>"))
 
 
-    def highlight_player(self,player_name):
-        print("Highlight", player_name)
-        if self.player1_name == player_name:
+    def highlight_player(self, player_number: int):
+        print("Highlight", player_number)
+        if player_number == 1:
             self.player1Label.setStyleSheet("background-color: rgb(122, 75, 52);\n"
                                         "font: 75 20pt \"Arial\";\n"
                                         "color: rgb(255, 255, 0);\n"
@@ -356,7 +360,8 @@ class Ui_mainMenuWindow(object):
         self.comboBox.setItemText(4, _translate("mainMenuWindow", "Random"))
         self.label_6.setText(_translate("mainMenuWindow", "Rodzaj gracza 2"))
         self.comboBox_2.setItemText(0, _translate("mainMenuWindow", "AlphaBeta"))
-        self.comboBox_2.setItemText(1, _translate("mainMenuWindow", "MinMax"))
+        self.comboBox_2.setItemText(1, _translate("mainMenuWindow", "Użytkownik"))
+        self.comboBox_2.setItemText(2, _translate("mainMenuWindow", "MinMax"))
         self.comboBox_2.setItemText(3, _translate("mainMenuWindow", "Middle"))
         self.comboBox_2.setItemText(4, _translate("mainMenuWindow", "Random"))
 
