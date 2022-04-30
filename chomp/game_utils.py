@@ -60,7 +60,7 @@ def judge(game: Game, player1, player2):
         return 0
 
 
-def run_test(game:Game, player1, player2, n=100, debug=False):
+def run_test(game:Game, player1, player2, parent, n=100, debug=False):
     p1_won = 0
     p2_won = 0
     draws = 0

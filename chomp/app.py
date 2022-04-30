@@ -1,22 +1,60 @@
 import sys
 
+from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (
     QApplication, QDialog, QMainWindow
 )
 
 from Chomp import Chomp
-from main_window_ui import Ui_mainMenuWindow
-from help_window_ui import Ui_helpWIndow
 from end_window_ui import Ui_endGame
+from game_utils import *
+from help_window_ui import Ui_helpWIndow
+from main_window_ui import Ui_mainMenuWindow
 from players import PLAYERS
+import time
 
+
+class Worker(QtCore.QObject):
+    finished = QtCore.pyqtSignal()
+    progress = QtCore.pyqtSignal(tuple)
+    time = QtCore.pyqtSignal(float)
+
+    def __init__(self, game: Game, player1, player2, n=100, debug=False):
+        super().__init__()
+        self.game = game
+        self.player1 = player1
+        self.player2 = player2
+        self.n = n
+        self.debug = debug
+
+    def run(self):
+        start = time.time()
+        p1_won = 0
+        p2_won = 0
+        draws = 0
+        for _ in range(self.n):
+            result = judge(self.game, self.player1, self.player2) if not self.debug else self.judge_debug(self.game, self.player1, self.player2)
+            if result == 1:
+                p1_won += 1
+            elif result == 2:
+                p2_won += 1
+            else:
+                draws += 1
+            self.progress.emit((p1_won, p2_won))
+        self.time.emit(time.time() - start)
+        self.finished.emit()
+
+    def stop(self):
+        self.threadactive = False
+        self.wait()
 
 class Window(QMainWindow, Ui_mainMenuWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.connectSignalsSlots()
+        self.thread = QtCore.QThread()
 
     def connectSignalsSlots(self):
         self.helpButton.clicked.connect(self.openHelpWindow)
@@ -27,11 +65,38 @@ class Window(QMainWindow, Ui_mainMenuWindow):
         helpWindow.exec_()
         print("Help window closed")
 
-    def initializeGame(self):
+    def initialize(self):
+        if self.startButton.text() == 'Graj':
+            self.initializeGame()
+        else:
+            self.initializeTests()
 
-        # Tutaj mozna zrobic inicjalizacje AI
-        # string nazwy wybranych graczy jest pod self.player1 i self.player2
-        # może używać tej samej funkcji chocolateClicked co gracz, tylko na koncu check do kogo nalezy kolejny ruch
+    def initializeTests(self):
+        self.stackedWidget.setCurrentIndex(3)
+
+    def runTests(self):
+        numTests = self.nTestsComboBox.value()
+        self.thread = QtCore.QThread()
+        self.worker = Worker(Chomp(self.width, self.height),
+                             PLAYERS[self.player1_name], PLAYERS[self.player2_name], numTests, False)
+
+        self.worker.moveToThread(self.thread)
+
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.worker.time.connect(lambda x: self.timeLabel.setText(str(round(x, 4)) + 's'))
+        self.worker.progress.connect(self.updateProgress)
+
+        self.thread.start()
+
+    def updateProgress(self, res):
+        self.p1WinsLabel.setText(str(res[0]))
+        self.p2WinsLabel.setText(str(res[1]))
+
+
+    def initializeGame(self):
         self.game = Chomp(self.height, self.width)
         self.player1, self.player2 = PLAYERS[self.player1_name], PLAYERS[self.player2_name]
         self.state = self.game.initial_state
@@ -53,7 +118,6 @@ class Window(QMainWindow, Ui_mainMenuWindow):
                     self.buttonList[y][x].setStyleSheet(u"background-color: rgb(122, 75, 52);")
                 self.buttonList[y][x].clicked.connect(lambda ch, arg1=x, arg2=y: self.chocolateClicked(arg1, arg2))
                 self.chocolateLayout.addWidget(self.buttonList[y][x], x, y, 1, 1)
-                self.buttonList[y][x] = self.buttonList[y][x]#TODO co to robi?
         # switch to game page
         self.stackedWidget.setCurrentIndex(2)
         if self.player1 != None:
@@ -75,7 +139,6 @@ class Window(QMainWindow, Ui_mainMenuWindow):
             action = currentPlayer(self.game, self.state)
             if self.move(action):
                 self.after_game()
-
 
     def move(self, action):
         """return if state is terminal"""

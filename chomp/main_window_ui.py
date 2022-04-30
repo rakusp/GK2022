@@ -9,6 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 from help_window_ui import Ui_helpWIndow
 
 class Ui_mainMenuWindow(object):
@@ -166,7 +168,6 @@ class Ui_mainMenuWindow(object):
         self.label_2.setStyleSheet("background-color: rgb(255, 255, 255, 0);\n"
 "font: 87 16pt \"Arial Black\";\n"
 "color: rgb(122, 75, 52)")
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
         self.heightSpinBox = QtWidgets.QSpinBox(self.layoutWidget1)
@@ -253,18 +254,13 @@ class Ui_mainMenuWindow(object):
         self.chocolateLayout.setSpacing(20)
         self.chocolateLayout.setObjectName(u"chocolateLayout")
 
-
-
-
-
-
         self.verticalLayoutWidget = QtWidgets.QWidget(self.gamePage)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(50, 500, 741, 61))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.verticalLayoutWidget)
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_2.setSpacing(450)
+        self.horizontalLayout_2.setSpacing(50)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.player1Label = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.player1Label.setStyleSheet("background-color: rgb(122, 75, 52);\n"
@@ -286,11 +282,142 @@ class Ui_mainMenuWindow(object):
         self.player2Label.setObjectName("player2Label")
         self.horizontalLayout_2.addWidget(self.player2Label)
         self.stackedWidget.addWidget(self.gamePage)
+
+        # test Page
+        self.testPage = QtWidgets.QWidget()
+        self.testPage.setObjectName(u"testPage")
+        self.backToMenu_2 = QPushButton(self.testPage)
+        self.backToMenu_2.setObjectName(u"backToMenu_2")
+        self.backToMenu_2.setGeometry(QRect(300, 490, 221, 51))
+        self.backToMenu_2.setStyleSheet(u"background-color: rgb(122, 75, 52);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "")
+        self.groupBox = QGroupBox(self.testPage)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setGeometry(QRect(160, 140, 501, 271))
+        self.groupBox.setStyleSheet(u"background-color: rgb(122, 75, 52);")
+        self.layoutWidget_2 = QWidget(self.groupBox)
+        self.layoutWidget_2.setObjectName(u"layoutWidget_2")
+        self.layoutWidget_2.setGeometry(QRect(10, 80, 411, 40))
+        self.horizontalLayout_5 = QHBoxLayout(self.layoutWidget_2)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.player2Stats = QLabel(self.layoutWidget_2)
+        self.player2Stats.setObjectName(u"player2Stats")
+        self.player2Stats.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                        "font: 87 16pt \"Arial Black\";\n"
+                                        "color: rgb(255, 255, 255)")
+
+        self.horizontalLayout_5.addWidget(self.player2Stats)
+
+        self.p2WinsLabel = QLabel(self.layoutWidget_2)
+        self.p2WinsLabel.setObjectName(u"p2WinsLabel")
+        self.p2WinsLabel.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                       "font: 87 16pt \"Arial Black\";\n"
+                                       "color: rgb(255, 255, 255)")
+        self.p2WinsLabel.setAlignment(Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
+
+        self.horizontalLayout_5.addWidget(self.p2WinsLabel)
+
+        self.layoutWidget_3 = QWidget(self.groupBox)
+        self.layoutWidget_3.setObjectName(u"layoutWidget_3")
+        self.layoutWidget_3.setGeometry(QRect(10, 130, 411, 40))
+        self.horizontalLayout_6 = QHBoxLayout(self.layoutWidget_3)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.label_12 = QLabel(self.layoutWidget_3)
+        self.label_12.setObjectName(u"label_12")
+        self.label_12.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                    "font: 87 16pt \"Arial Black\";\n"
+                                    "color: rgb(255, 255, 255)")
+
+        self.horizontalLayout_6.addWidget(self.label_12)
+
+        self.timeLabel = QLabel(self.layoutWidget_3)
+        self.timeLabel.setObjectName(u"timeLabel")
+        self.timeLabel.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                     "font: 87 16pt \"Arial Black\";\n"
+                                     "color: rgb(255, 255, 255)")
+        self.timeLabel.setAlignment(Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
+
+        self.horizontalLayout_6.addWidget(self.timeLabel)
+
+        self.runTestsButton = QPushButton(self.groupBox)
+        self.runTestsButton.setObjectName(u"runTestsButton")
+        self.runTestsButton.setGeometry(QRect(141, 210, 221, 44))
+        sizePolicy7 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.runTestsButton.sizePolicy().hasHeightForWidth())
+        self.runTestsButton.setSizePolicy(sizePolicy7)
+        self.runTestsButton.setStyleSheet(u"background-color: rgb(122, 75, 52);\n"
+                                          "font: 75 12pt \"Arial\";\n"
+                                          "color: rgb(255, 255, 255);\n"
+                                          "")
+        self.widget = QWidget(self.groupBox)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(10, 30, 411, 40))
+        self.horizontalLayout_4 = QHBoxLayout(self.widget)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.player1Stats = QLabel(self.widget)
+        self.player1Stats.setObjectName(u"player1Stats")
+        self.player1Stats.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                        "font: 87 16pt \"Arial Black\";\n"
+                                        "color: rgb(255, 255, 255)")
+
+        self.horizontalLayout_4.addWidget(self.player1Stats)
+
+        self.p1WinsLabel = QLabel(self.widget)
+        self.p1WinsLabel.setObjectName(u"p1WinsLabel")
+        self.p1WinsLabel.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                       "font: 87 16pt \"Arial Black\";\n"
+                                       "color: rgb(255, 255, 255)")
+        self.p1WinsLabel.setAlignment(Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
+
+        self.horizontalLayout_4.addWidget(self.p1WinsLabel)
+
+        self.widget1 = QWidget(self.testPage)
+        self.widget1.setObjectName(u"widget1")
+        self.widget1.setGeometry(QRect(20, 30, 511, 46))
+        self.horizontalLayout_7 = QHBoxLayout(self.widget1)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.label_7 = QLabel(self.widget1)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                   "font: 87 16pt \"Arial Black\";\n"
+                                   "color: rgb(122, 75, 52)")
+
+        self.horizontalLayout_3.addWidget(self.label_7)
+
+        self.nTestsComboBox = QSpinBox(self.widget1)
+        self.nTestsComboBox.setObjectName(u"nTestsComboBox")
+        self.nTestsComboBox.setStyleSheet(u"font: 87 16pt \"Arial Black\";\n"
+                                          "color: rgb(0, 0, 0)")
+        self.nTestsComboBox.setMinimum(1)
+        self.nTestsComboBox.setMaximum(10000)
+        self.nTestsComboBox.setSingleStep(3)
+        self.nTestsComboBox.setValue(100)
+
+        self.horizontalLayout_3.addWidget(self.nTestsComboBox)
+
+        self.horizontalLayout_7.addLayout(self.horizontalLayout_3)
+
+        self.stackedWidget.addWidget(self.testPage)
+
+
         mainMenuWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(mainMenuWindow)
         self.statusbar.setMouseTracking(False)
         self.statusbar.setObjectName("statusbar")
         mainMenuWindow.setStatusBar(self.statusbar)
+
+        self.player2Label.setFixedSize(344, 59)
+        self.player1Label.setFixedSize(344, 59)
 
         self.retranslateUi(mainMenuWindow)
 
@@ -298,6 +425,7 @@ class Ui_mainMenuWindow(object):
         QtCore.QMetaObject.connectSlotsByName(mainMenuWindow)
 
         self.setupMainMenu()
+        self.setupTestPage()
 
 
     def setupMainMenu(self):
@@ -306,7 +434,14 @@ class Ui_mainMenuWindow(object):
         # save settings
         self.backToMenu.clicked.connect(self.saveSettings)
         # game start button
-        self.startButton.clicked.connect(self.initializeGame)
+        self.startButton.clicked.connect(self.initialize)
+
+    def setupTestPage(self):
+        # return
+        self.backToMenu_2.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
+        # run tests
+        self.runTestsButton.clicked.connect(self.runTests)
+
 
     def saveSettings(self):
         # get players
@@ -323,6 +458,28 @@ class Ui_mainMenuWindow(object):
         _translate = QtCore.QCoreApplication.translate
         self.player1Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player1_name}</p></body></html>"))
         self.player2Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player2_name}</p></body></html>"))
+        self.startButton.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                       "font: 75 20pt \"Arial\";\n"
+                                       "color: rgb(255, 255, 255);\n"
+                                       "")
+        self.startButton.setEnabled(True)
+        if (self.player1_name == 'AlphaBeta' or self.player2_name == 'AlphaBeta') and (self.width) * (self.height) > 49:
+            self.startButton.setEnabled(False)
+            self.startButton.setText('Zbyt duży rozmiar planszy dla AlphaBeta ')
+            self.startButton.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                           "font: 75 10pt \"Arial\";\n"
+                                           "color: rgb(255, 255, 255);\n"
+                                           "")
+        elif (self.player1_name != 'Użytkownik') and (self.player2_name != 'Użytkownik'):
+            suffix=''
+            if self.player1_name == self.player2_name:
+                suffix = '(2)'
+            self.player1Stats.setText('Wygrane ' + self.player1_name + ': ')
+            self.player2Stats.setText('Wygrane ' + self.player2_name + suffix + ': ')
+            self.startButton.setText('Testy')
+        elif (self.player1_name == 'Użytkownik') or (self.player2_name == 'Użytkownik'):
+            self.startButton.setText('Graj')
+
 
 
     def highlight_player(self, player_number: int):
@@ -366,7 +523,16 @@ class Ui_mainMenuWindow(object):
         self.comboBox_2.setItemText(4, _translate("mainMenuWindow", "Random"))
 
         self.backToMenu.setText(_translate("mainMenuWindow", "OK"))
-        #TODO patryk to jednak nie działa (nie odsiweza sie)
         self.player1Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player1_name}</p></body></html>"))
         self.player2Label.setText(_translate("mainMenuWindow", f"<html><head/><body><p align=\"center\">{self.player2_name}</p></body></html>"))
+        self.backToMenu_2.setText(QCoreApplication.translate("mainMenuWindow", u"Wr\u00f3\u0107 do menu", None))
+        self.groupBox.setTitle(QCoreApplication.translate("mainMenuWindow", u"Wyniki", None))
+        self.player2Stats.setText(QCoreApplication.translate("mainMenuWindow", u"Wygrane player2:", None))
+        self.p2WinsLabel.setText(QCoreApplication.translate("mainMenuWindow", u"0", None))
+        self.label_12.setText(QCoreApplication.translate("mainMenuWindow", u"Czas:", None))
+        self.timeLabel.setText(QCoreApplication.translate("mainMenuWindow", u"0s", None))
+        self.runTestsButton.setText(QCoreApplication.translate("mainMenuWindow", u"Uruchom testy", None))
+        self.player1Stats.setText(QCoreApplication.translate("mainMenuWindow", u"Wygrane player1:", None))
+        self.p1WinsLabel.setText(QCoreApplication.translate("mainMenuWindow", u"0", None))
+        self.label_7.setText(QCoreApplication.translate("mainMenuWindow", u"Liczba gier:", None))
 import chomp_rc
