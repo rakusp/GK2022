@@ -179,8 +179,8 @@ def middle_agent(game, start_state):
     if len(possible_actions) > 0:
         return random.choice(possible_actions)
     else:
-        #return random.sample(population=[b[0] for b in bad_actions], k=1,  counts=[b[1] for b in bad_actions])
-        return random.choice([b[0] for b in bad_actions])
+        return random.choices(population=[b[0] for b in bad_actions], k=1,  weights=[b[1] for b in bad_actions])[0]
+        # return random.choice([b[0] for b in bad_actions])
 
 
 def minimax(game: Game, start_state):
