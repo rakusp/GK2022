@@ -118,6 +118,13 @@ def middle_agent(game, start_state):
     _, start_board = start_state
     if np.sum(start_board) == 1:
         return 0,0
+    ij = is_rectangle(start_board)
+    if ij is not None:
+        i,j = ij
+        if i == 2 and j == 3:
+            return (1,2)
+        elif j == 2 and i == 3:
+            return (2,1)
     ij = is_nxn(start_board)
     if ij is not None:
         return 1,1
