@@ -410,6 +410,73 @@ class Ui_mainMenuWindow(object):
         self.stackedWidget.addWidget(self.testPage)
 
 
+        ###################
+
+        self.authorsPage = QWidget()
+        self.authorsPage.setObjectName(u"authorsPage")
+        self.backToMenu_3 = QPushButton(self.authorsPage)
+        self.backToMenu_3.setObjectName(u"backToMenu_3")
+        self.backToMenu_3.setGeometry(QRect(310, 490, 221, 51))
+        self.backToMenu_3.setStyleSheet(u"background-color: rgb(122, 75, 52);\n"
+                                        "font: 75 12pt \"Arial\";\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "")
+        self.widget = QWidget(self.authorsPage)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(80, 40, 661, 421))
+        self.verticalLayout_5 = QVBoxLayout(self.widget)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.author = QLabel(self.widget)
+        self.author.setObjectName(u"author")
+        self.author.setMaximumSize(QSize(661, 16777215))
+        self.author.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                  "font: 87 30pt \"Arial Black\";\n"
+                                  "color: rgb(122, 75, 52)\n"
+                                  "")
+        self.author.setMargin(13)
+
+        self.verticalLayout_5.addWidget(self.author)
+
+        self.author_2 = QLabel(self.widget)
+        self.author_2.setObjectName(u"author_2")
+        self.author_2.setMaximumSize(QSize(661, 16777215))
+        self.author_2.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                    "font: 87 30pt \"Arial Black\";\n"
+                                    "color: rgb(122, 75, 52)\n"
+                                    "")
+        self.author_2.setMargin(13)
+
+        self.verticalLayout_5.addWidget(self.author_2)
+
+        self.author_3 = QLabel(self.widget)
+        self.author_3.setObjectName(u"author_3")
+        self.author_3.setMaximumSize(QSize(661, 16777215))
+        self.author_3.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                    "font: 87 30pt \"Arial Black\";\n"
+                                    "color: rgb(122, 75, 52)\n"
+                                    "\n"
+                                    "")
+        self.author_3.setMargin(13)
+
+        self.verticalLayout_5.addWidget(self.author_3)
+
+        self.author_4 = QLabel(self.widget)
+        self.author_4.setObjectName(u"author_4")
+        self.author_4.setMaximumSize(QSize(661, 16777215))
+        self.author_4.setStyleSheet(u"background-color: rgb(255, 255, 255, 0);\n"
+                                    "font: 87 30pt \"Arial Black\";\n"
+                                    "color: rgb(122, 75, 52)\n"
+                                    "")
+        self.author_4.setMargin(13)
+
+        self.verticalLayout_5.addWidget(self.author_4)
+
+        self.stackedWidget.addWidget(self.authorsPage)
+
+        ###################
+
+
         mainMenuWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(mainMenuWindow)
         self.statusbar.setMouseTracking(False)
@@ -435,6 +502,10 @@ class Ui_mainMenuWindow(object):
         self.backToMenu.clicked.connect(self.saveSettings)
         # game start button
         self.startButton.clicked.connect(self.initialize)
+        # go to authors page
+        self.authorsButton.clicked.connect(lambda x: self.stackedWidget.setCurrentIndex(4))
+        # author's back button
+        self.backToMenu_3.clicked.connect(lambda x: self.stackedWidget.setCurrentIndex(0))
 
     def setupTestPage(self):
         # return
@@ -535,4 +606,10 @@ class Ui_mainMenuWindow(object):
         self.player1Stats.setText(QCoreApplication.translate("mainMenuWindow", u"Wygrane player1:", None))
         self.p1WinsLabel.setText(QCoreApplication.translate("mainMenuWindow", u"0", None))
         self.label_7.setText(QCoreApplication.translate("mainMenuWindow", u"Liczba gier:", None))
+        self.backToMenu_3.setText(QCoreApplication.translate("mainMenuWindow", u"Wr\u00f3\u0107 do menu", None))
+        self.author.setText(QCoreApplication.translate("mainMenuWindow", u"Patryk Rakus", None))
+        self.author_2.setText(QCoreApplication.translate("mainMenuWindow", u"Kacper Tr\u0119bacz", None))
+        self.author_3.setText(QCoreApplication.translate("mainMenuWindow", u"Aleksandra Urba\u0144czyk", None))
+        self.author_4.setText(QCoreApplication.translate("mainMenuWindow", u"Zuzanna Fatyga", None))
+
 import chomp_rc

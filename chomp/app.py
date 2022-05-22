@@ -15,18 +15,19 @@ from players import PLAYERS
 import time
 
 
-class Worker(QtCore.QObject):
+class Worker(QtCore.QThread):
     finished = QtCore.pyqtSignal()
     progress = QtCore.pyqtSignal(tuple)
     time = QtCore.pyqtSignal(float)
 
     def __init__(self, game: Game, player1, player2, n=100, debug=False):
-        super().__init__()
+        super(Worker, self).__init__()
         self.game = game
         self.player1 = player1
         self.player2 = player2
         self.n = n
         self.debug = debug
+        self.threadActive = True
 
     def run(self):
         start = time.time()
@@ -34,6 +35,8 @@ class Worker(QtCore.QObject):
         p2_won = 0
         draws = 0
         for _ in range(self.n):
+            if not self.threadActive:
+                break
             result = judge(self.game, self.player1, self.player2) if not self.debug else self.judge_debug(self.game, self.player1, self.player2)
             if result == 1:
                 p1_won += 1
@@ -46,8 +49,8 @@ class Worker(QtCore.QObject):
         self.finished.emit()
 
     def stop(self):
-        self.threadactive = False
-        self.wait()
+        self.threadActive = False
+
 
 class Window(QMainWindow, Ui_mainMenuWindow):
     def __init__(self, parent=None):
@@ -74,9 +77,19 @@ class Window(QMainWindow, Ui_mainMenuWindow):
     def initializeTests(self):
         self.stackedWidget.setCurrentIndex(3)
 
-    def runTests(self):
-        numTests = self.nTestsComboBox.value()
+    def killThread(self):
+        self.worker.stop()
+        self.thread.quit()
+        self.thread.wait()
         self.thread = QtCore.QThread()
+
+    def runTests(self):
+        if self.thread.isRunning():
+            self.killThread()
+            return
+
+        self.runTestsButton.setText('Zatrzymaj')
+        numTests = self.nTestsComboBox.value()
         self.worker = Worker(Chomp(self.width, self.height),
                              PLAYERS[self.player1_name], PLAYERS[self.player2_name], numTests, False)
 
@@ -86,6 +99,8 @@ class Window(QMainWindow, Ui_mainMenuWindow):
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
+        self.thread.finished.connect(lambda: self.runTestsButton.setText('Uruchom testy'))
+        self.thread.finished.connect(self.killThread)
         self.worker.time.connect(lambda x: self.timeLabel.setText(str(round(x, 4)) + 's'))
         self.worker.progress.connect(self.updateProgress)
 
@@ -128,7 +143,7 @@ class Window(QMainWindow, Ui_mainMenuWindow):
     def chocolateClicked(self, x, y):
         print(self.player1_name, self.player2_name)
         print('Clicked piece:', (x, y))
-        action = (y,x)
+        action = (y, x)
         if self.move(action):
             self.after_game()
             return
