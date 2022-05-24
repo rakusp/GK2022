@@ -541,6 +541,13 @@ class Ui_mainMenuWindow(object):
                                            "font: 75 10pt \"Arial\";\n"
                                            "color: rgb(255, 255, 255);\n"
                                            "")
+        elif (self.player1_name == 'MinMax' or self.player2_name == 'MinMax') and (self.width) * (self.height) > 36:
+            self.startButton.setEnabled(False)
+            self.startButton.setText('Zbyt duży rozmiar planszy dla MinMax ')
+            self.startButton.setStyleSheet("background-color: rgb(122, 75, 52);\n"
+                                           "font: 75 10pt \"Arial\";\n"
+                                           "color: rgb(255, 255, 255);\n"
+                                           "")
         elif (self.player1_name != 'Użytkownik') and (self.player2_name != 'Użytkownik'):
             suffix=''
             if self.player1_name == self.player2_name:
