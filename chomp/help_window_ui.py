@@ -15,6 +15,7 @@ class Ui_helpWIndow(object):
     def setupUi(self, helpWIndow):
         helpWIndow.setObjectName("helpWIndow")
         helpWIndow.resize(537, 401)
+        helpWIndow.setWindowIcon(QtGui.QIcon(":/Chomp/Chomp_icon.ico"))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

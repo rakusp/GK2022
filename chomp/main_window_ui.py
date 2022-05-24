@@ -26,6 +26,7 @@ class Ui_mainMenuWindow(object):
 
     def setupUi(self, mainMenuWindow):
         mainMenuWindow.setObjectName("mainMenuWindow")
+        mainMenuWindow.setWindowIcon(QtGui.QIcon(":/Chomp/Chomp_icon.ico"))
         mainMenuWindow.setEnabled(True)
         mainMenuWindow.resize(850, 600)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -543,7 +544,7 @@ class Ui_mainMenuWindow(object):
                                            "")
         elif (self.player1_name == 'MinMax' or self.player2_name == 'MinMax') and (self.width) * (self.height) > 36:
             self.startButton.setEnabled(False)
-            self.startButton.setText('Zbyt duży rozmiar planszy dla MinMax ')
+            self.startButton.setText('Zbyt duży rozmiar planszy dla MinMax')
             self.startButton.setStyleSheet("background-color: rgb(122, 75, 52);\n"
                                            "font: 75 10pt \"Arial\";\n"
                                            "color: rgb(255, 255, 255);\n"
